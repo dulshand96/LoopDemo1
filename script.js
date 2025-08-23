@@ -114,7 +114,9 @@ function getItemById(id, callback) {
 // ====== Update item ======
 function updateItem(id) {
   const title = document.getElementById("title").value;
-  const brand = document.getElementById("brand").value;
+  const brandSelect = document.getElementById("brandSelect");
+  const customBrand = document.getElementById("customBrand");
+  const brand = brandSelect.value === "Other" ? customBrand.value : brandSelect.value;
   const price = document.getElementById("price").value;
   const image = document.getElementById("image").value;
 
