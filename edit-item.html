@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Item</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a href="edit-index.html">⬅ Back to Edit List</a>
+  <div id="edit-item-container"></div>
+
+  <script src="script.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const itemId = parseInt(params.get("id"));
+    const items = getItems();
+    const item = items.find(i => i.id === itemId);
+
+    const container = document.getElementById("edit-item-container");
+
+    if (item) {
+      container.innerHTML = `
+        <form id="edit-item-form">
+          <label>Title:</label>
+          <input type="text" id="title" value="${item.title}" required><br>
+
+          <label>Brand:</label>
+          <input type="text" id="brand" value="${item.brand}" required><br>
+
+          <label>Price:</label>
+          <input type="number" id="price" value="${item.price}" required><br>
+
+          <label>Image URL:</label>
+          <input type="text" id="image" value="${item.image}" required><br>
+
+          <button type="submit">Save Changes</button>
+        </form>
+      `;
+
+      document.getElementById("edit-item-form").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        // Update the item
+        item.title = document.getElementById("title").value;
+        item.brand = document.getElementById("brand").value;
+        item.price = document.getElementById("price").value;
+        item.image = document.getElementById("image").value;
+
+        const index = items.findIndex(i => i.id === item.id);
+        items[index] = item;
+        saveItems(items);
+
+        // Redirect back to the edit list
+        window.location.href = "edit-index.html";
+      });
+    } else {
+      container.innerHTML = "<p>Item not found.</p>";
+    }
+  </script>
+</body>
+</html>
