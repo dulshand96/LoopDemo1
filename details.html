@@ -2,46 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Item Details</title>
+  <title>Item Details - Loop</title>
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
   <link rel="stylesheet" href="style.css">
+
+  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+  <!-- Your JS -->
   <script src="script.js"></script>
 </head>
 <body>
-  <header class="details-header">
-    <a href="index.html" class="back-button">⬅ Back to Home</a>
-  </header>
+  <!-- Logo -->
+  <img src="images/logo.png" alt="Loop Logo" class="logo">
 
-  <main id="item-details" class="details-container">
-    <!-- Item details will be injected here by JS -->
-  </main>
+  <h1>Item Details</h1>
+
+  <div id="details-container" class="item-card"></div>
+
+  <a href="index.html">⬅ Back to Home</a>
 
   <script>
-    // Get item ID from URL
-    const params = new URLSearchParams(window.location.search);
-    const itemId = parseInt(params.get("id"));
+    document.addEventListener("DOMContentLoaded", () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const itemId = urlParams.get("id");
 
-    const items = getItems();
-    const item = items.find(i => i.id === itemId);
+      // Load the item details
+      getItemById(itemId, (item) => {
+        if (!item) {
+          document.getElementById("details-container").innerHTML = "<p>Item not found.</p>";
+          return;
+        }
 
-    const container = document.getElementById("item-details");
-
-    if (item) {
-      container.innerHTML = `
-        <div class="item-detail-card">
-          <img src="${item.image}" alt="${item.title}" class="detail-image">
-          <div class="detail-info">
-            <h2 class="item-title">${item.title}</h2>
-            <h4 class="brand">${item.brand}</h4>
-            <p class="price">£${item.price}</p>
-          </div>
-        </div>
-      `;
-    } else {
-      container.innerHTML = "<p>Item not found.</p>";
-    }
+        document.getElementById("details-container").innerHTML = `
+          <img src="${item.image}" alt="${item.title}" class="item-tile">
+          <h2>${item.title}</h2>
+          <h3>${item.brand}</h3>
+          <p class="price">£${item.price}</p>
+        `;
+      });
+    });
   </script>
 </body>
 </html>
-
