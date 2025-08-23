@@ -5,8 +5,10 @@
   <meta charset="UTF-8">
   <title>Add Item - Vinted Lite</title>
   <link rel="stylesheet" href="style.css">
+  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+  <!-- Your JS file -->
   <script src="script.js"></script>
 </head>
 <body>
@@ -20,8 +22,8 @@
 
     <label>Price:</label>
     <input type="number" id="price" required><br>
-	
-	<label>Brand:</label>
+    
+    <label>Brand:</label>
     <input type="text" id="brand" required><br>
 
     <label>Image URL:</label>
@@ -32,11 +34,13 @@
 
   <a href="index.html">⬅ Back to Home</a>
 
-  <script src="script.js"></script>
   <script>
-    document.getElementById("addItemForm").addEventListener("submit", function(e) {
-      e.preventDefault(); // stop page reload
-      addItem();
+    // Make sure DOM is loaded
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("addItemForm").addEventListener("submit", function(e) {
+        e.preventDefault(); // stop page reload
+        addItem();
+      });
     });
   </script>
 </body>
