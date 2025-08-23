@@ -38,6 +38,7 @@
     <div style="display: flex; gap: 30px; align-items: center;">
       <button type="submit">Save Changes</button>
       <button type="button" onclick="window.location.href='edit-index.html'">Cancel</button>
+      <button type="button" id="deleteBtn" style="background-color:#e74c3c; color:white;">Delete</button>
     </div>
 
   </form>
@@ -75,18 +76,19 @@
 
         // Set brand dropdown or custom brand
         if (
-          item.brand === "Nike" ||
-          item.brand === "Adidas" ||
-          item.brand === "Puma"
+          item.brand === "Other" ||
+          BRANDS.includes(item.brand) === false
         ) {
-          brandSelect.value = item.brand;
-          customBrand.style.display = "none";
-          customBrand.required = false;
-        } else {
           brandSelect.value = "Other";
           customBrand.value = item.brand;
           customBrand.style.display = "block";
           customBrand.required = true;
+        } 
+        else if (BRANDS.includes(item.brand)) 
+        {
+          brandSelect.value = item.brand;
+          customBrand.style.display = "none";
+          customBrand.required = false;
         }
       });
     }
@@ -95,6 +97,18 @@
       e.preventDefault();
       updateItem(itemId);
     });
+
+      // Delete button logic
+      document.getElementById("deleteBtn").addEventListener("click", function() {
+        if (confirm("Are you sure you want to delete this item?")) {
+          const urlParams = new URLSearchParams(window.location.search);
+          const itemId = urlParams.get("id");
+          if (itemId) {
+            deleteItem(itemId);
+          }
+        }
+      });
+
   });
   </script>
 </body>

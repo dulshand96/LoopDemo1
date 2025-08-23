@@ -134,3 +134,14 @@ function updateItem(id) {
     alert("Failed to update item.");
   });
 }
+
+function deleteItem(id) {
+  db.collection("items").doc(id).delete()
+    .then(() => {
+      window.location.href = "edit-index.html";
+    })
+    .catch(error => {
+      console.error("Error deleting item: ", error);
+      alert("Failed to delete item.");
+    });
+}
