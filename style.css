@@ -17,6 +17,16 @@ h1 {
   overflow: hidden;
 }
 
+.logo-link {
+  background: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: inherit;
+  display: inline-block;
+}
+
 .add-item-button {
   position: absolute;
   top: 20px;
