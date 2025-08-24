@@ -17,7 +17,7 @@
 <body>
   <!-- Logo -->
   <a href="index.html" class="logo-link">
-  <img src="images/logo.png" alt="Loop Logo" class="logo">
+    <img src="images/logo.png" alt="Loop Logo" class="logo">
   </a>
 
   <h1>Edit Item</h1>
@@ -28,12 +28,21 @@
     <label>Price:</label>
     <input type="number" id="price" required><br><br>
     
+    <!-- Brand dropdown start -->
     <div style="display: flex; gap: 10px; align-items: center;">
       <label>Brand:</label>
       <select id="brandSelect" required></select>
       <input type="text" id="customBrand" placeholder="Enter brand name" style="display:none;">
     </div>
     <br>
+    
+    <!-- Category dropdown start -->
+    <div style="display: flex; gap: 10px; align-items: center;">
+      <label>Category:</label>
+      <select id="categorySelect" required></select>
+      <input type="text" id="customCategory" placeholder="Enter Category" style="display:none;">
+    </div>
+    <br>   
 
     <label>Image URL:</label>
     <input type="text" id="image" required><br><br>
@@ -43,19 +52,18 @@
       <button type="button" onclick="window.location.href='edit-index.html'">Cancel</button>
       <button type="button" id="deleteBtn" style="background-color:#e74c3c; color:white;">Delete</button>
     </div>
-
   </form>
 
   <a href="edit-index.html">⬅ Back to Edit List</a>
 
   <script>
   document.addEventListener("DOMContentLoaded", () => {
+    // Brand dropdown
     const brandSelect = document.getElementById("brandSelect");
     brandSelect.innerHTML = '<option value="">Select a brand</option>';
     BRANDS.forEach(brand => {
       brandSelect.innerHTML += `<option value="${brand}">${brand}</option>`;
     });
-
     const customBrand = document.getElementById("customBrand");
 
     brandSelect.addEventListener("change", function() {
@@ -65,6 +73,24 @@
       } else {
         customBrand.style.display = "none";
         customBrand.required = false;
+      }
+    });
+
+    // Category dropdown
+    const categorySelect = document.getElementById("categorySelect");
+    categorySelect.innerHTML = '<option value="">Select a category</option>';
+    CATEGORIES.forEach(category => {
+      categorySelect.innerHTML += `<option value="${category}">${category}</option>`;
+    });
+    const customCategory = document.getElementById("customCategory");
+
+    categorySelect.addEventListener("change", function() {
+      if (this.value === "Other") {
+        customCategory.style.display = "block";
+        customCategory.required = true;
+      } else {
+        customCategory.style.display = "none";
+        customCategory.required = false;
       }
     });
 
@@ -87,11 +113,26 @@
           customBrand.style.display = "block";
           customBrand.required = true;
         } 
-        else if (BRANDS.includes(item.brand)) 
-        {
+        else if (BRANDS.includes(item.brand)) {
           brandSelect.value = item.brand;
           customBrand.style.display = "none";
           customBrand.required = false;
+        }
+
+        // Set category dropdown or custom category
+        if (
+          item.category === "Other" ||
+          CATEGORIES.includes(item.category) === false
+        ) {
+          categorySelect.value = "Other";
+          customCategory.value = item.category;
+          customCategory.style.display = "block";
+          customCategory.required = true;
+        } 
+        else if (CATEGORIES.includes(item.category)) {
+          categorySelect.value = item.category;
+          customCategory.style.display = "none";
+          customCategory.required = false;
         }
       });
     }
@@ -101,17 +142,16 @@
       updateItem(itemId);
     });
 
-      // Delete button logic
-      document.getElementById("deleteBtn").addEventListener("click", function() {
-        if (confirm("Are you sure you want to delete this item?")) {
-          const urlParams = new URLSearchParams(window.location.search);
-          const itemId = urlParams.get("id");
-          if (itemId) {
-            deleteItem(itemId);
-          }
+    // Delete button logic
+    document.getElementById("deleteBtn").addEventListener("click", function() {
+      if (confirm("Are you sure you want to delete this item?")) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const itemId = urlParams.get("id");
+        if (itemId) {
+          deleteItem(itemId);
         }
-      });
-
+      }
+    });
   });
   </script>
 </body>

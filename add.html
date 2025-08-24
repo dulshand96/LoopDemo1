@@ -19,7 +19,17 @@
   <img src="images/logo.png" alt="Loop Logo" class="logo">
   </a>
 
-  <h1>Add New Item</h1>
+   <!-- Add Banner -->
+  <div class="add-banner-container"></div> 
+
+    <img src="https://img.freepik.com/premium-photo/woman-sitting-prepare-clothing-new-journey_53876-155101.jpg" alt="Banner" class="add-banner-image">
+
+    <!-- <div class="add-banner-text-card"> -->
+      <h1 class="page-heading">Add New Item</h1>
+    <!-- </div> -->
+  
+  </div>
+
   <form id="addItemForm">
     <label>Title:</label>
     <input type="text" id="title" required><br><br>
@@ -28,27 +38,34 @@
     <input type="number" id="price" required><br><br>
     
     
-    <!-- <input type="text" id="brand" required><br><br> -->
     <!-- Brand dropdwown start -->
     <div style="display: flex; gap: 10px; align-items: center;">
       <label>Brand:</label>
 
       <select id="brandSelect" required></select>
       <input type="text" id="customBrand" placeholder="Enter brand name" style="display:none; margin-top:8px;">
-    </div>
-    <!-- brand dropdwown end -->
-    <br><br>
+    </div><br>
+
+     <!-- Category dropdwown start -->
+    <div style="display: flex; gap: 10px; align-items: center;">
+      <label>Category:</label>
+
+      <select id="categorySelect" required></select>
+      <input type="text" id="customCategory" placeholder="Enter Category" style="display:none; margin-top:8px;">
+    </div><br>   
 
     <label>Image URL:</label>
     <input type="text" id="image" required><br><br>
 
-    <button type="submit">Add Item</button>
+    <button class = "add-item-btn" type="submit">Add Item</button>
   </form>
   <br><br>
-  <a href="index.html">⬅ Back to Home</a>
+  <a class= "back-home" href="index.html">⬅ Back to Home</a>
 
   <script>
   document.addEventListener("DOMContentLoaded", () => {
+    
+    // Populate brand dropdown
     const brandSelect = document.getElementById("brandSelect");
     brandSelect.innerHTML = '<option value="">Select a brand</option>';
     BRANDS.forEach(brand => {
@@ -56,6 +73,16 @@
     });
     const customBrand = document.getElementById("customBrand");
 
+    // Populate category dropdown
+    const categorySelect = document.getElementById("categorySelect");
+    categorySelect.innerHTML = '<option value="">Select a category</option>';
+    CATEGORIES.forEach(category => {
+      categorySelect.innerHTML += `<option value="${category}">${category}</option>`;
+    });
+    const customCategory = document.getElementById("customCategory");
+
+
+    // Show/hide custom brand input
     brandSelect.addEventListener("change", function() {
       if (this.value === "Other") {
         customBrand.style.display = "block";
@@ -65,6 +92,17 @@
         customBrand.required = false;
       }
     });
+
+    // Show/hide custom category input
+    categorySelect.addEventListener("change", function() {
+      if (this.value === "Other") {
+        customCategory.style.display = "block";
+        customCategory.required = true;
+      } else {
+        customCategory.style.display = "none";
+        customCategory.required = false;
+      }
+    });    
 
     document.getElementById("addItemForm").addEventListener("submit", function(e) {
       e.preventDefault();

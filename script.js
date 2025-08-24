@@ -18,12 +18,16 @@ function addItem() {
   const brandSelect = document.getElementById("brandSelect");
   const customBrand = document.getElementById("customBrand");
   const brand = brandSelect.value === "Other" ? customBrand.value : brandSelect.value;
+  const categorySelect = document.getElementById("categorySelect");
+  const customCategory = document.getElementById("customCategory");
+  const category = categorySelect.value === "Other" ? customCategory.value : categorySelect.value;  
   const price = document.getElementById("price").value;
   const image = document.getElementById("image").value;
 
   db.collection("items").add({
     title,
     brand,
+    category,
     price,
     image,
     createdAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -117,12 +121,16 @@ function updateItem(id) {
   const brandSelect = document.getElementById("brandSelect");
   const customBrand = document.getElementById("customBrand");
   const brand = brandSelect.value === "Other" ? customBrand.value : brandSelect.value;
+  const categorySelect = document.getElementById("categorySelect");
+  const customCategory = document.getElementById("customCategory");
+  const category = categorySelect.value === "Other" ? customCategory.value : categorySelect.value;
   const price = document.getElementById("price").value;
   const image = document.getElementById("image").value;
 
   db.collection("items").doc(id).update({
     title,
     brand,
+    category,
     price,
     image
   })
@@ -135,6 +143,7 @@ function updateItem(id) {
   });
 }
 
+// ====== Delete item ======
 function deleteItem(id) {
   db.collection("items").doc(id).delete()
     .then(() => {
