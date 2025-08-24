@@ -97,7 +97,7 @@ a {
   object-fit: cover;
   object-position: top 20%;
   display: block;   /* removes any inline spacing */
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
   mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
 }
@@ -146,9 +146,9 @@ a {
 .shipping-fee-notice1 {
   border: 1px solid #ddd;
   padding: 10px;
-  max-width: 920px;
+  max-width: 80%;
   border-radius: 10px;
-  margin: 20px auto;
+  margin: 0px  auto;
   position: relative;
   font-family: Arial, sans-serif;
   font-size: 12px;
@@ -166,10 +166,10 @@ a {
 }
 
 .item-card {
-  border: 1px solid #ddd;
-  padding: 10px;
+  /* border: 1px solid #ddd; */
+  padding: 0px;
   width: 180px;
-  text-align: center;
+  text-align: left;
   border-radius: 10px;
 }
 
@@ -196,6 +196,15 @@ a {
   font-size: 12px;           
   color: #2c3e50;
   margin: 0 0 2px 0;
+  text-align: left;
+}
+
+.price {
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  color: #2c3e50;
+  font-weight: bold;
+  margin: 10px 0 10px 0;
   text-align: left;
 }
 
