@@ -4,6 +4,12 @@ body {
   overflow-x: hidden;
 }
 
+.logo {
+  width: 120px;   /* adjust as needed */
+  display: block;
+  margin-bottom: 10px;
+}
+
 a {
   display: inline-block;
   margin: 10px 0;
@@ -140,14 +146,31 @@ a {
 .shipping-fee-notice1 {
   border: 1px solid #ddd;
   padding: 10px;
-  width: 82.5%;
+  max-width: 920px;
   border-radius: 10px;
   margin: 20px auto;
   position: relative;
   font-family: Arial, sans-serif;
   font-size: 12px;
   text-align: left;
+}
 
+#items-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin: 20px auto;
+  position: relative;
+  justify-content: center;
+  max-width: 1000px;
+}
+
+.item-card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  width: 180px;
+  text-align: center;
+  border-radius: 10px;
 }
 
 .item-title {
@@ -174,29 +197,6 @@ a {
   color: #2c3e50;
   margin: 0 0 2px 0;
   text-align: left;
-}
-
-#items-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
-  margin-top: 20px;
-  position: relative;
-  left: 100px;
-}
-
-.item-card {
-  border: 1px solid #ddd;
-  padding: 10px;
-  width: 180px;
-  text-align: center;
-  border-radius: 10px;
-  /* box-shadow: 2px 2px 5px #ccc; */
-}
-.logo {
-  width: 120px;   /* adjust as needed */
-  display: block;
-  margin-bottom: 10px;
 }
 
 /* Back button */
@@ -302,17 +302,4 @@ a {
   border: 1px solid #ddd;
   border-radius: 10px;
   background: #f9f9f9;
-}
-
-.add-item-btn {
-  position: absolute;
-  display: inline-block;
-  /* margin: 10px 40px auto auto; */
-  right: 30px; /* Distance from right edge */
-  bottom: 20px; /* Adjust vertical position as needed */
-  text-decoration: none;
-  color: white;
-  background: #03a128;
-  padding: 8px 20px;
-  border-radius: 5px;
 }
