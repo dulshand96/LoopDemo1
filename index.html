@@ -11,6 +11,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
   <!-- Your JS -->
   <script src="script.js"></script>
+  <script src="Lists.js"></script>
 </head>
 
 <body>
@@ -18,6 +19,9 @@
   <a href="index.html" class="logo-link">
   <img src="images/logo.png" alt="Loop Logo" class="logo">
   </a>
+
+  <!-- Tabs -->
+  <div id="category-tabs" style="display: flex; gap: 10px; justify-content: center; margin-bottom: 20px;"></div>
 
   <!-- Banner -->
   <div class="banner-container"></div> 
@@ -49,6 +53,54 @@
     });
   </script>
 </body>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Create tabs dynamically from CATEGORIES
+  const tabsContainer = document.getElementById("category-tabs");
+  tabsContainer.innerHTML = `<button class="category-tab active" data-category="All">All</button>`;
+  CATEGORIES.forEach(category => {
+    tabsContainer.innerHTML += `<button class="category-tab" data-category="${category}">${category}</button>`;
+  });
+
+  let currentCategory = "All";
+
+  function displayItems(category = "All") {
+    db.collection("items").get().then(snapshot => {
+      const itemsContainer = document.getElementById("items-container");
+      itemsContainer.innerHTML = "";
+      snapshot.forEach(doc => {
+        const item = doc.data();
+        if (category === "All" || item.category === category) {
+          // Render item card (use your existing code here)
+          itemsContainer.innerHTML += `
+            <div class="item-card">
+              <img src="${item.image}" class="item-tile" alt="${item.title}">
+              <div class="item-title">${item.title}</div>
+              <div class="brand">${item.brand}</div>
+              <div class="price">£${item.price}</div>
+            </div>
+          `;
+        }
+      });
+    });
+  }
+
+  // Initial display
+  displayItems();
+
+  // Tab click event
+  tabsContainer.addEventListener('click', function(e) {
+    if (e.target.classList.contains('category-tab')) {
+      document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+      e.target.classList.add('active');
+      currentCategory = e.target.getAttribute('data-category');
+      displayItems(currentCategory);
+    }
+  });
+});
+</script>
+
 </html>
 
 
